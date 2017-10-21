@@ -1,23 +1,17 @@
-<html>
-    <head>
-        <title>Django Girls blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">Makaronchik`s BLOG</a></h1>
-        </div>
+{% extends 'blog/base.html' %}
 
-       {% for post in posts %}
-            <div>
-                <p>published: {{ post.published_date }}</p>
-                <h1><a href="">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaksbr }}</p>
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                <p>Опубликовано: {{ post.published_date }}</p>
             </div>
-       {% endfor %}
-        <div>
-            <p>published: 15.06.2017, 12:14</p>
-            <h2><a href="">Второй, но не по значимости пост</a></h2>
-            <p>...хотя в нем ни смысла, ни содержания(((</p>
+
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        <div class="imageblog">
+                        <img src="{{ post.image_url }}" alt="">
+                    </div>
         </div>
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
